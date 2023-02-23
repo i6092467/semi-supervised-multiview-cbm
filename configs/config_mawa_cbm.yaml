@@ -1,0 +1,66 @@
+# An example configuration file for training a CBM on the MVAwA data
+
+# --------------------------
+#         Experiment
+# --------------------------
+experiment_name: 'cbm-mvawa'
+run_name: 'test-42'
+seed: 42
+validate: False
+k_folds: 5
+device: 'cuda'
+workers: 2
+# TODO: specify relevant directories below
+log_directory: '...'
+model_directory: '...'
+
+# --------------------------
+#         Dataset
+# --------------------------
+dataset: 'mawa'
+num_views: 4
+num_classes: 50
+partial_concepts: False
+preload: False                                    # preload images into the CPU memory?
+
+# --------------------------
+#         Model
+# --------------------------
+model: 'CBM'
+encoder_arch: 'ResNet18'
+aggregator: 'mean'
+training_mode: 'sequential'
+alpha: 1.0
+num_concepts: 85
+t_hidden_dim: 100
+norm_bottleneck: False
+attention: False
+
+# --------------------------
+#         Training
+# --------------------------
+c_epochs: 25
+c_learning_rate: 0.0001
+
+t_epochs: 20
+t_learning_rate: 0.01
+
+j_epochs: 120
+j_learning_rate: 0.0001
+
+train_batch_size: 64
+val_batch_size: 64
+
+optimizer: 'adam'
+
+decrease_every: 150
+lr_divisor: 2
+
+weight_decay: 0
+
+validate_every_epoch: False
+
+# --------------------------
+#     Additional features
+# --------------------------
+ex_features: []

@@ -1,0 +1,70 @@
+# An example configuration file for training a CBM on the synthetic data
+
+# --------------------------
+#         Experiment
+# --------------------------
+experiment_name: 'cbm-synthetic'                  # name of the experiment
+run_name: 'test-42'                               # name of the run
+seed: 42                                          # random generator seed
+device: 'cuda'                                    # device to use for PyTorch: 'cpu' or 'cuda'
+workers: 2                                        # number of worker processes
+validate: False                                   # run cross-validation?
+k_folds: 5                                        # number of folds in CV
+# TODO: specify relevant directories below
+log_directory: '...'                              # directory for saving logs and model checkpoints
+model_directory: '...'                            # directory with pretrained models, s.a. ResNet-18
+
+# --------------------------
+#         Dataset
+# --------------------------
+dataset: 'synthetic'                              # name of the dataset
+num_views: 3                                      # number of views
+num_classes: 2                                    # number of the classes of the target variable
+num_synthetic_concepts: 30                        # number of the concept variables
+partial_concepts: False                           # are concepts only partially observable?
+num_vars: 500                                     # number of covariates per view
+num_points: 10000                                 # number of data points
+
+# --------------------------
+#         Model
+# --------------------------
+model: 'CBM'                                      # model's name: 'CBM', 'MVCBM' or 'SSMVCBM'
+encoder_arch: 'FCNN'                              # view encoder architecture: 'FCNN' or 'ResNet18'
+aggregator: 'mean'                                # view aggregation method for the (SS)MVCBM: 'mean' or 'lstm'
+training_mode: 'sequential'                       # optimization methods for the (MV)CBM: 'sequential' or 'joint'
+alpha: 1.0                                        # parameter controlling the trade-off between concept and target prediction
+                                                      # during the joint optimization
+num_concepts: 30                                  # number of the concepts observed by the model
+t_hidden_dim: 100                                 # number of the units in the hidden layer of the target prediction MLP
+norm_bottleneck: False                            # apply batch norm before the concept bottleneck layer?
+attention: False                                  # enable attention mechanism?
+
+# --------------------------
+#         Training
+# --------------------------
+c_epochs: 100                                     # number of training epochs for the concept module in the sequential optimization
+c_learning_rate: 0.001                            # learning rate for the concept module in the sequential optimization
+
+t_epochs: 50                                      # number of training epochs for the target module in the sequential optimization
+t_learning_rate: 0.001                            # learning rate for the target module in the sequential optimization
+
+j_epochs: 120                                     # number of training epochs in the joint optimization
+j_learning_rate: 0.0001                           # learning rate in the joint optimization
+
+train_batch_size: 64                              # batch size for the training set
+val_batch_size: 64                                # batch size for the validation and test sets
+
+validate_every_epoch: True                        # evaluate the model after every epoch?
+
+optimizer: 'adam'                                 # optimizer: 'sgd' or 'adam'
+
+decrease_every: 150                               # frequency of the learning rate decrease
+lr_divisor: 2                                     # rate of the learning rate decrease
+
+weight_decay: 0                                   # weight decay
+
+# --------------------------
+#     Additional features
+# --------------------------
+ex_features: []                                   # list of additional tabular features to append to the bottleneck layer
+                                                      # (in the pediatric appendicitis dataset)

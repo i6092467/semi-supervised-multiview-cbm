@@ -1,0 +1,91 @@
+# An example configuration file for training a CBM on the pediatric appendicitis data
+
+# --------------------------
+#         Experiment
+# --------------------------
+experiment_name: 'cbm-app'
+run_name: 'test-42'
+seed: 42
+validate: False
+k_folds: 5
+device: 'cuda'
+workers: 2
+# TODO: specify relevant directories below
+log_directory: '...'
+model_directory: '...'
+
+# --------------------------
+#         Dataset
+# --------------------------
+dataset: 'app'
+num_classes: 2
+# TODO: specify relevant directories below
+# Directory containing preprocessed training set ultrasound images (after DeepFill, cropping and padding)
+images: '...'
+# Directory containing preprocessed test set ultrasound images (after DeepFill, cropping and padding)
+test_images: '...'
+# Directory containing training data dictionary files
+dict_file: '...'
+# Directory containing test data dictionary files
+dict_file_test: '...'
+preload: False                                    # preload images into the CPU memory?
+
+# --------------------------
+#         Augmentation
+# --------------------------
+augmentation: True                                # apply augmentations to images during training?
+aug_per_sample: 1
+hist_equal: True
+normalize: False
+brightness: True
+rotate: True
+shear: True
+resize: True
+gamma: True
+sharpness: True
+gaussian_noise: True
+poisson_noise: False
+SP_noise: False
+zero_rect: 0.05
+
+# --------------------------
+#         Model
+# --------------------------
+model: 'CBM'
+encoder_arch: 'ResNet18'
+aggregator: 'mean'
+training_mode: 'sequential'
+alpha: 1.0
+num_concepts: 9
+t_hidden_dim: 5
+norm_bottleneck: False
+attention: False
+
+#---------------------------
+#         Training
+# --------------------------
+c_epochs: 25
+c_learning_rate: 0.0001
+
+t_epochs: 20
+t_learning_rate: 0.01
+
+j_epochs: 120
+j_learning_rate: 0.0001
+
+train_batch_size: 4
+val_batch_size: 4
+
+optimizer: 'adam'
+
+decrease_every: 150
+lr_divisor: 2
+
+weight_decay: 0
+
+validate_every_epoch: False
+
+# --------------------------
+#     Additional features
+# --------------------------
+ex_features: []                                   # consider including tabular clinical features in addition to the US concepts

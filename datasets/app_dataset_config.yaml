@@ -1,0 +1,33 @@
+### An example configuration file for the data generating script ###
+
+# -----------------
+#  Files & directories
+# -----------------
+info_file: /local/home/Datasets/Appendicitis_clean/app_data_clean.xlsx
+image_dir: /local/home/Datasets/Appendicitis_clean/US_Pictures
+output_dir: /local/home/Datasets/Appendicitis_clean/
+output_file: app_data
+blacklist: /local/home/Datasets/Appendicitis_clean/multiple_in_one
+# -------------------
+#   column names
+# -------------------
+label: Diagnosis
+
+# -------------------
+#  Label information
+# -------------------
+true_label: ['appendicitis']
+false_label: ['no appendicitis']
+
+# -------------------
+#  Concept information
+# -------------------
+concepts: ['Surrounding_Tissue_Reaction', 'Free_Fluids', 'Bowel_Wall_Thickening', 'Enteritis', 'Appendix_on_US',
+           'Appendix_Diameter', 'Pathological_Lymph_Nodes', 'Ileus', 'Coprostasis', 'Meteorism', 'Appendix_Wall_Layers',
+           'Target_Sign', 'Perforation', 'Appendicular_Abscess', 'Conglomerate_of_Bowel_Loops', 'Gynecological_Findings']
+
+#--------------------
+# Misc
+#--------------------
+samples_per_subject: 1
+extract_features: True

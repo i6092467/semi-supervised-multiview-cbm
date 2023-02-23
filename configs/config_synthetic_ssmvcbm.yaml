@@ -1,0 +1,79 @@
+# An example configuration file for training an SSMVCBM on the synthetic data
+
+# --------------------------
+#         Experiment
+# --------------------------
+experiment_name: 'ssmvcbm-synthetic'
+run_name: "test-42"
+seed: 42
+validate: False
+k_folds: 5
+device: 'cuda'
+workers: 2
+# TODO: specify relevant directories below
+log_directory: '...'
+model_directory: '...'
+
+# --------------------------
+#         Dataset
+# --------------------------
+dataset: 'synthetic'
+num_views: 3
+num_classes: 2
+num_synthetic_concepts: 30
+partial_concepts: False
+num_vars: 500
+num_points: 10000
+
+# --------------------------
+#         Model
+# --------------------------
+model: 'SSMVCBM'
+encoder_arch: 'FCNN'
+aggregator: 'mean'
+num_s_concepts: 30                                # number of concepts given to the model
+num_us_concepts: 30                               # number of dimensions for the representations
+t_hidden_dim: 100
+norm_bottleneck: False
+usc_out_activation: 'tanh'                        # activation function for the representations: 'tanh', 'sigmoid', 'relu' or 'none'
+attention: False                                  # enable attention mechanism for the concept prediction?
+usc_attention: False                              # enable attention mechanism for the representation learning?
+
+# --------------------------
+#         Training
+# --------------------------
+sc_epochs: 100
+sc_learning_rate: 0.001
+
+adversarial_it: 7                                 # number of iterations in the adversarial training scheme
+adversary: True                                   # enable adversarial regularization?
+beta: 0.01                                        # weight of the adversarial regularizer
+
+# NOTE: the parameter below currently has no effect since decorrelation is disabled
+usc_gamma: 0                                      # weight of the decorrelation loss applied to the representations
+
+d_epochs: 30                                      # number of training epochs for the adversary
+d_learning_rate: 0.001                            # learning rate for the adversary
+
+usc_epochs: 30                                    # number of training epochs for the representation encoder
+usc_learning_rate: 0.001                          # learning rate for the representation encoder
+
+t_epochs: 50                                      # number of training epochs for the target prediction module
+t_learning_rate: 0.001                            # learning rate for the target prediction module
+
+train_batch_size: 64
+val_batch_size: 64
+
+optimizer: 'adam'
+
+decrease_every: 150
+lr_divisor: 2
+
+weight_decay: 0
+
+validate_every_epoch: False
+
+# --------------------------
+#     Additional features
+# --------------------------
+ex_features: []

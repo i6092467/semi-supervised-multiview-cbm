@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+eval "$(conda shell.bash hook)"
+
+# Needed for deterministic computations
+export CUBLAS_WORKSPACE_CONFIG=":4096:8"
+
+conda activate multiview-cbm
+
+# For example, train an MVCBM
+python ../train.py --config ../configs/config_app_mvcbm.yaml

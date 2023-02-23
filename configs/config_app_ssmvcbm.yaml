@@ -1,0 +1,97 @@
+# An example configuration file for training an SSMVCBM on the pediatric appendicitis data
+
+# --------------------------
+#         Experiment
+# --------------------------
+experiment_name: 'ssmvcbm-app'
+run_name: 'test-42'
+seed: 42
+validate: False
+k_folds: 5
+device: 'cuda'
+workers: 2
+# TODO: specify relevant directories below
+log_directory: '...'
+model_directory: '...'
+
+# --------------------------
+#         Dataset
+# --------------------------
+dataset: 'app'
+num_classes: 2
+# TODO: specify relevant directories below
+images: '...'
+test_images: '...'
+dict_file: '...'
+dict_file_test: '...'
+preload: False
+
+# --------------------------
+#         Augmentation
+# --------------------------
+augmentation: True
+aug_per_sample: 1
+hist_equal: True
+normalize: False
+brightness: True
+rotate: True
+shear: True
+resize: True
+gamma: True
+sharpness: True
+gaussian_noise: True
+poisson_noise: False
+SP_noise: False
+zero_rect: 0.05
+
+# --------------------------
+#         Model
+# --------------------------
+model: 'SSMVCBM'
+encoder_arch: 'ResNet18'
+aggregator: 'lstm'
+num_s_concepts: 9
+num_us_concepts: 5
+t_hidden_dim: 8
+norm_bottleneck: False
+usc_out_activation: 'tanh'
+attention: False
+usc_attention: False
+
+# --------------------------
+#         Training
+# --------------------------
+sc_epochs: 20
+sc_learning_rate: 0.0001
+
+adversarial_it: 7
+adversary: True
+beta: 0.01
+
+usc_gamma: 0
+
+d_epochs: 10
+d_learning_rate: 0.01
+
+usc_epochs: 15
+usc_learning_rate: 0.0001
+
+t_epochs: 20
+t_learning_rate: 0.01
+
+train_batch_size: 8
+val_batch_size: 8
+
+optimizer: 'adam'
+
+decrease_every: 150
+lr_divisor: 2
+
+weight_decay: 0
+
+validate_every_epoch: False
+
+# --------------------------
+#     Additional features
+# --------------------------
+ex_features: []

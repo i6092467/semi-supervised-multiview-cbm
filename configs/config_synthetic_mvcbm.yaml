@@ -1,0 +1,68 @@
+# An example configuration file for training an MVCBM on the synthetic data
+
+# --------------------------
+#         Experiment
+# --------------------------
+experiment_name: 'mvcbm-synthetic'
+run_name: 'test-42'
+seed: 42
+validate: False
+k_folds: 5
+device: 'cuda'
+workers: 2
+# TODO: specify relevant directories below
+log_directory: '...'
+model_directory: '...'
+
+# --------------------------
+#         Dataset
+# --------------------------
+dataset: 'synthetic'
+num_views: 3
+num_classes: 2
+num_synthetic_concepts: 30
+partial_concepts: False
+num_vars: 500
+num_points: 10000
+
+# --------------------------
+#         Model
+# --------------------------
+model: 'MVCBM'
+encoder_arch: 'FCNN'
+aggregator: 'mean'
+training_mode: 'sequential'
+alpha: 1.0
+num_concepts: 30
+t_hidden_dim: 100
+norm_bottleneck: False
+attention: False
+
+# --------------------------
+#         Training
+# --------------------------
+c_epochs: 100
+c_learning_rate: 0.001
+
+t_epochs: 50
+t_learning_rate: 0.001
+
+j_epochs: 120
+j_learning_rate: 0.0001
+
+train_batch_size: 64
+val_batch_size: 64
+
+validate_every_epoch: False
+
+optimizer: "adam"
+
+decrease_every: 150
+lr_divisor: 2
+
+weight_decay: 0
+
+# --------------------------
+#     Additional features
+# --------------------------
+ex_features: []
