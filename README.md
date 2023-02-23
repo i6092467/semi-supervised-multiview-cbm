@@ -50,7 +50,7 @@ To prepare the pediatric appendicitis data, run [this Jupyter notebook](notebook
 The *Animals with Attributes 2* (AwA) dataset is freely available [here](https://cvml.ista.ac.at/AwA2/). Before running 
 the experiments on the multiview AwA, make sure to copy the file [`datasets/all_classes.txt`](datasets/all_classes.txt)
 to the dataset directory. The **pediatric appendicitis dataset** can be downloaded 
-from [Zenodo](https://zenodo.org/record/7669215#.Y_cqh9KZN6w) (doi: [10.5281/zenodo.7669215](https://doi.org/10.5281/zenodo.7669215)).
+from [Zenodo](https://zenodo.org/record/7669442#.Y_cv29KZN6w) (doi: [10.5281/zenodo.7669442](https://doi.org/10.5281/zenodo.7669442)).
 
 ### ⚙️ Usage
 
