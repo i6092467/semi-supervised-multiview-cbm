@@ -3,11 +3,12 @@
 # -----------------
 #  Files & directories
 # -----------------
-info_file: /local/home/Datasets/Appendicitis_clean/app_data_clean.xlsx
-image_dir: /local/home/Datasets/Appendicitis_clean/US_Pictures
-output_dir: /local/home/Datasets/Appendicitis_clean/
+# TODO: insert relevant directories below
+info_file: ...
+image_dir: ...
+output_dir: ...
 output_file: app_data
-blacklist: /local/home/Datasets/Appendicitis_clean/multiple_in_one
+blacklist: ...
 # -------------------
 #   column names
 # -------------------
