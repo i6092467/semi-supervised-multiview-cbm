@@ -140,16 +140,16 @@ If you use the models or the dataset, please cite the papers below:
 @misc{MarcinkevicsWolfertstetterKlimiene2023,
   title = {Interpretable and Intervenable Ultrasonography-based Machine Learning Models for Pediatric Appendicitis},
   author = {Marcinkevi\v{c}s, Ri\v{c}ards and Reis Wolfertstetter, Patricia and Klimiene, Ugne 
-              and Ozkan, Ece and Chin-Cheong, Kieran and Paschke, Alyssia and Zerres, Julia 
+              and Chin-Cheong, Kieran and Paschke, Alyssia and Zerres, Julia 
               and Denzinger, Markus and Niederberger, David and Wellmann, Sven 
-              and Knorr, Christian and Vogt, Julia E.},
+              and Ozkan, Ece and Knorr, Christian and Vogt, Julia E.},
   year = {2023},
   note = {arXiv:2302.14460},
 }
 ```
 
 ### Copyright
-This repository is copyright © 2023 Marcinkevičs, Reis Wolfertstetter, Klimiene, Ozkan, Chin-Cheong, Paschke, Zerres, 
-Denzinger, Niederberger, Wellmann, Knorr and Vogt.
+This repository is copyright © 2023 Marcinkevičs, Reis Wolfertstetter, Klimiene, Chin-Cheong, Paschke, Zerres, 
+Denzinger, Niederberger, Wellmann, Ozkan, Knorr and Vogt.
 
 This repository is additionally licensed under CC-BY-NC-4.0.
