@@ -3,9 +3,9 @@
 # Semi-supervised Multiview Concept Bottleneck Models Applied to Pediatric Appendicitis
 
 This repository accompanies the paper ["*Interpretable and intervenable ultrasonography-based machine learning models 
-for pediatric appendicitis*"](https://arxiv.org/abs/2302.14460). An earlier version of this work was presented as an 
+for pediatric appendicitis*"](https://arxiv.org/abs/2302.14460). Earlier versions of this work were presented as an 
 [oral spotlight](https://www.youtube.com/watch?v=QOn102OVaGw) at the 
-[2<sup>nd</sup> Workshop on Interpretable Machine Learning in Healthcare (IMLH), ICML 2022](https://mds.inf.ethz.ch/fileadmin/user_upload/multiview_cbm_imlh_2022.pdf). 
+[2<sup>nd</sup> Workshop on Interpretable Machine Learning in Healthcare (IMLH), ICML 2022](https://mds.inf.ethz.ch/fileadmin/user_upload/multiview_cbm_imlh_2022.pdf) and at the [Workshop on Machine Learning for Multimodal Healthcare Data (ML4MHD 2023), co-located with ICML 2023](https://www.mlhealthdata.com/). 
 
 <p align="center">
   <img align="middle" src="figures/model_summary.png" alt="MVCBM and SSMVCBM summary" width="800"/>
