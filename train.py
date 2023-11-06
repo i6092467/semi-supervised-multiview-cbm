@@ -871,7 +871,7 @@ def train_mvcbm(config, gen):
 		t_epochs = config["t_epochs"]
 
 	c_results = np.empty((c_epochs, config["num_concepts"], (4 + 1))) if c_epochs is not None else None
-	t_results = np.empty((t_epochs, (11 + 3)))  # 11 metrics + 3 losses
+	t_results = np.empty((t_epochs, (17 + 3)))  # 17 metrics + 3 losses
 
 	# Instantiate dataloaders
 	train_loader, _ = _create_data_loaders(config, gen, trainset, train_ids=np.arange(len(train_labels)))
@@ -916,7 +916,7 @@ def train_mvcbm(config, gen):
 
 				for concept_idx in range(len(concepts_loss)):
 					c_results[epoch, concept_idx, 0] = concepts_loss[concept_idx]
-					c_results[epoch, concept_idx, 1:5] = all_cMetrics[concept_idx].get_cMetrics()
+					c_results[epoch, concept_idx, 1:6] = all_cMetrics[concept_idx].get_cMetrics()
 
 				print_epoch_val_scores(config, mode, target_loss, concepts_loss,
 									   summed_concepts_loss, total_loss, tMetrics, all_cMetrics,
@@ -951,15 +951,21 @@ def train_mvcbm(config, gen):
 			FP_names, FN_names = validate_epoch_mvcbm(epoch, config, model, test_loader, loss_fn)
 
 			t_results[epoch, 0] = target_loss
-			t_results[epoch, 1] = summed_concepts_loss  # 0 for USVarMLP
-			t_results[epoch, 2] = total_loss  # = target_loss for USVarMLP
-			t_results[epoch, 3:] = tMetrics.get_tMetrics()
+			t_results[epoch, 1] = summed_concepts_loss
+			t_results[epoch, 2] = total_loss
+			tmp_metrics = tMetrics.get_tMetrics()
+
+			t_results[epoch, 3:14] = tmp_metrics[:11]
+			t_results[epoch, 14:19] = np.array([tmp_metrics[11]['FPR at 0.75'], tmp_metrics[11]['FPR at 0.8'],
+												tmp_metrics[11]['FPR at 0.9'], tmp_metrics[11]['FPR at 0.95'],
+												tmp_metrics[11]['FPR at 0.99']])
+			t_results[epoch, 19:] = tmp_metrics[12:]
 
 			if config["model"] in ["MVCBM", "CBM", "Dummy"] and \
 					config["training_mode"] == "joint":
 				for concept_idx in range(len(concepts_loss)):
 					c_results[epoch, concept_idx, 0] = concepts_loss[concept_idx]
-					c_results[epoch, concept_idx, 1:5] = all_cMetrics[concept_idx].get_cMetrics()
+					c_results[epoch, concept_idx, 1:6] = all_cMetrics[concept_idx].get_cMetrics()
 
 			print_epoch_val_scores(
 				config, mode, target_loss, concepts_loss, summed_concepts_loss, total_loss, tMetrics, all_cMetrics,

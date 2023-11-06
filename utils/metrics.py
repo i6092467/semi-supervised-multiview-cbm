@@ -11,7 +11,7 @@ import numpy as np
 from sklearn.metrics import (PrecisionRecallDisplay, RocCurveDisplay,
                              accuracy_score, auc, confusion_matrix, f1_score,
                              precision_recall_curve, precision_score,
-                             recall_score, roc_auc_score, balanced_accuracy_score)
+                             recall_score, roc_auc_score, balanced_accuracy_score, det_curve)
 
 matplotlib.use("Agg")
 
@@ -217,12 +217,13 @@ class PRC:
         f.close()
 
 
-class TMetrics():
+class TMetrics:
     """
     Metrics of interest for evaluating target variable predictions
     """
 
-    def __init__(self, ppv, npv, sensitivity, specificity, accuracy, balanced_accuracy, f1_1, f1_0, f1_macro, auroc, aupr):
+    def __init__(self, ppv, npv, sensitivity, specificity, accuracy, balanced_accuracy, f1_1, f1_0, f1_macro, auroc, aupr,
+                 fpr_at_k=None, brier_score=None):
         self.ppv = ppv
         self.npv = npv
         self.sensitivity = sensitivity
@@ -234,10 +235,19 @@ class TMetrics():
         self.f1_macro = f1_macro
         self.auroc = auroc
         self.aupr = aupr
+        if fpr_at_k is not None:
+            self.fpr_at_k = fpr_at_k
+        if brier_score is not None:
+            self.brier_score = brier_score
 
     def get_tMetrics(self):
-        metrics_array = np.array([self.ppv, self.npv, self.sensitivity, self.specificity, self.accuracy,
-                                  self.balanced_accuracy, self.f1_1, self.f1_0, self.f1_macro, self.auroc, self.aupr])
+        tmp = [self.ppv, self.npv, self.sensitivity, self.specificity, self.accuracy, self.balanced_accuracy, self.f1_1,
+               self.f1_0, self.f1_macro, self.auroc, self.aupr]
+        if hasattr(self, 'fpr_at_k'):
+            tmp.append(self.fpr_at_k)
+        if hasattr(self, 'brier_score'):
+            tmp.append(self.brier_score)
+        metrics_array = np.array(tmp)
         return metrics_array
 
 
@@ -273,6 +283,16 @@ def calc_tMetrics(y_true, y_score):
         precision, recall, thresholds = precision_recall_curve(y_true, y_score)
         aupr = auc(recall, precision)
 
+        fpr, fnr, _ = det_curve(y_true, y_score)
+        tpr = 1 - fnr
+        fpr_at_k = {}
+        ks = [0.75, 0.80, 0.90, 0.95, 0.99]
+        for k in ks:
+            ind = np.argmin(np.abs(tpr - k))
+            fpr_at_k['FPR at ' + str(k)] = np.round(fpr[ind], 3)
+
+        brier_score = calc_brier_score(y_true=y_true, y_prob=y_score)
+
     else:
         ppv = precision_score(y_true, y_pred, average='macro', zero_division=0)
         npv = precision_score(y_true, y_pred, average='macro', zero_division=0)
@@ -288,26 +308,36 @@ def calc_tMetrics(y_true, y_score):
 
         auroc = roc_auc_score(y_true, y_score, average='macro', multi_class='ovr')
 
-        # TODO: implement some version of the multiclass AUPR
+        # TODO: implement multiclass versions of the metrics below
         aupr = -1.0
 
-    return TMetrics(ppv, npv, sensitivity, specificity, accuracy, balanced_accuracy, f1_1, f1_0, f1_macro, auroc, aupr)
+        fpr_at_k = None
+
+        brier_score = None
+
+    return TMetrics(ppv, npv, sensitivity, specificity, accuracy, balanced_accuracy, f1_1, f1_0, f1_macro, auroc, aupr,
+                    fpr_at_k, brier_score)
 
 
-class CMetrics():
+class CMetrics:
     """
     Metrics of interest for evaluating concept predictions
     """
 
-    def __init__(self, accuracy, f1_macro, auroc, aupr, concept_name):
+    def __init__(self, accuracy, f1_macro, auroc, aupr, concept_name, brier_score=None):
         self.accuracy = accuracy
         self.f1_macro = f1_macro
         self.auroc = auroc
         self.aupr = aupr
         self.concept_name = concept_name
+        if brier_score is not None:
+            self.brier_score = brier_score
 
     def get_cMetrics(self):
-        cmetrics_array = np.array([self.accuracy, self.f1_macro, self.auroc, self.aupr])
+        tmp = [self.accuracy, self.f1_macro, self.auroc, self.aupr]
+        if hasattr(self, 'brier_score'):
+            tmp.append(self.brier_score)
+        cmetrics_array = np.array(tmp)
         return cmetrics_array
 
 
@@ -327,7 +357,8 @@ def calc_cMetrics(y_true, y_score, concept_name):
         auroc = 0
     precision, recall, thresholds = precision_recall_curve(y_true, y_score)
     aupr = auc(recall, precision)
-    return CMetrics(accuracy, f1_macro, auroc, aupr, concept_name)
+    brier_score = calc_brier_score(y_true=y_true, y_prob=y_score)
+    return CMetrics(accuracy, f1_macro, auroc, aupr, concept_name, brier_score)
 
 
 def calc_confusion(y_true, y_score, image_file_names):
@@ -359,3 +390,12 @@ def calc_confusion(y_true, y_score, image_file_names):
         FN_names = np.array([])
 
     return conf_matrix, FP_names, FN_names
+
+
+def calc_brier_score(y_true, y_prob, rescale=False):
+    if rescale:
+        y_prob_ = (y_prob - np.min(y_prob)) / (np.max(y_prob) - np.min(y_prob))
+    else:
+        y_prob_ = y_prob
+    # NOTE: assumes a binary classification task
+    return np.mean((y_prob_ - y_true)**2)
