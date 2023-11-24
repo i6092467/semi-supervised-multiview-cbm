@@ -129,7 +129,8 @@ https://openreview.net/forum?id=tglniD_fn9
 If you use the models or the dataset, please cite the papers below:
 ```
 @article{MarcinkevicsReisWolfertstetterKlimiene2024,
-  title = {Interpretable and intervenable ultrasonography-based machine learning models for pediatric appendicitis},
+  title = {Interpretable and intervenable ultrasonography-based machine learning models
+              for pediatric appendicitis},
   journal = {Medical Image Analysis},
   volume = {91},
   pages = {103042},
