@@ -2,10 +2,10 @@
 
 # Semi-supervised Multiview Concept Bottleneck Models Applied to Pediatric Appendicitis
 
-This repository accompanies the paper ["*Interpretable and intervenable ultrasonography-based machine learning models 
-for pediatric appendicitis*"](https://arxiv.org/abs/2302.14460). Earlier versions of this work were presented as an 
+This repository accompanies the [*Medical Image Analysis* (Elsevier)](https://www.sciencedirect.com/journal/medical-image-analysis/) paper ["*Interpretable and intervenable ultrasonography-based machine learning models 
+for pediatric appendicitis*"](https://doi.org/10.1016/j.media.2023.103042). Earlier versions of this work were presented as an 
 [oral spotlight](https://www.youtube.com/watch?v=QOn102OVaGw) at the 
-[2<sup>nd</sup> Workshop on Interpretable Machine Learning in Healthcare (IMLH), ICML 2022](https://mds.inf.ethz.ch/fileadmin/user_upload/multiview_cbm_imlh_2022.pdf) and at the [Workshop on Machine Learning for Multimodal Healthcare Data (ML4MHD 2023), co-located with ICML 2023](https://www.mlhealthdata.com/). 
+[2<sup>nd</sup> Workshop on Interpretable Machine Learning in Healthcare (IMLH), ICML 2022](https://mds.inf.ethz.ch/fileadmin/user_upload/multiview_cbm_imlh_2022.pdf) and at the [Workshop on Machine Learning for Multimodal Healthcare Data (ML4MHD 2023), co-located with ICML 2023](https://slideslive.com/39006574). 
 
 <p align="center">
   <img align="middle" src="figures/model_summary.png" alt="MVCBM and SSMVCBM summary" width="800"/>
@@ -128,6 +128,21 @@ https://openreview.net/forum?id=tglniD_fn9
 
 If you use the models or the dataset, please cite the papers below:
 ```
+@article{MarcinkevicsReisWolfertstetterKlimiene2024,
+  title = {Interpretable and intervenable ultrasonography-based machine learning models for pediatric appendicitis},
+  journal = {Medical Image Analysis},
+  volume = {91},
+  pages = {103042},
+  year = {2024},
+  issn = {1361-8415},
+  doi = {https://doi.org/10.1016/j.media.2023.103042},
+  url = {https://www.sciencedirect.com/science/article/pii/S136184152300302X},
+  author = {Ri\v{c}ards Marcinkevi\v{c}s and Patricia {Reis Wolfertstetter} and Ugne Klimiene
+              and Kieran Chin-Cheong and Alyssia Paschke and Julia Zerres and Markus Denzinger
+              and David Niederberger and Sven   Wellmann and Ece Ozkan and Christian Knorr
+              and Julia E. Vogt}
+}
+
 @inproceedings{KlimieneMarcinkevics2022,
   title={Multiview Concept Bottleneck Models Applied to Diagnosing Pediatric Appendicitis},
   author={Klimiene, Ugne and Marcinkevi{\v{c}}s, Ri{\v{c}}ards and Reis Wolfertstetter, Patricia 
@@ -135,16 +150,6 @@ If you use the models or the dataset, please cite the papers below:
             and Wellmann, Sven and Knorr, Christian and Vogt, Julia E},
   booktitle={2nd Workshop on Interpretable Machine Learning in Healthcare (IMLH), ICML 2022},
   year={2022}
-}
-
-@misc{MarcinkevicsWolfertstetterKlimiene2023,
-  title = {Interpretable and Intervenable Ultrasonography-based Machine Learning Models for Pediatric Appendicitis},
-  author = {Marcinkevi\v{c}s, Ri\v{c}ards and Reis Wolfertstetter, Patricia and Klimiene, Ugne 
-              and Chin-Cheong, Kieran and Paschke, Alyssia and Zerres, Julia 
-              and Denzinger, Markus and Niederberger, David and Wellmann, Sven 
-              and Ozkan, Ece and Knorr, Christian and Vogt, Julia E.},
-  year = {2023},
-  note = {arXiv:2302.14460},
 }
 ```
 
